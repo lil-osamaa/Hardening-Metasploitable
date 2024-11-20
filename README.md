@@ -11,7 +11,7 @@ The goal of this project is to identify vulnerabilities within the **Metasploita
 
 The network environment consists of two main components: a **Vulnerable Machine** (Metasploitable) and a **Kali Linux Machine** for penetration testing.
 
-#### Network Diagram
+#### Network Diagram in EVE
 ![Network Environment Setup](images/network_diagram.png)
 
 1. **Vulnerable Machine (Metasploitable):**
@@ -70,8 +70,8 @@ The network environment consists of two main components: a **Vulnerable Machine*
   - Metasploit on the Kali Linux machine.
 - Actions Performed:
   - Exploited several critical and high-risk vulnerabilities identified in Week 1.
-- **Exploitation Example:**
-  ![Exploitation Screenshot](images/exploitation_example.png)
+- Exploits used and results can be found in the presentation 
+  [Download Here](reports/presentation.pptx)
 
 ---
 
@@ -79,24 +79,27 @@ The network environment consists of two main components: a **Vulnerable Machine*
 **Objective:** Mitigate vulnerabilities through secure configuration and patching.
 - Actions Performed:
   - Edited configuration files to patch exploited vulnerabilities.
+
 - **NFS (111, 2049)**
   - NFS is misconfigured so that it provides full access to its entire root filesystem to all devices on the network. As you can see from /etc/exports down below, ‘*’ basically means that all hosts are allowed to mount the root filesystem which is ill-advised. It is considered best practice to limit access to only necessary hosts and restrict to only necessary directories.
-      ![Configuration Fix Screenshot](images/config_fix.png)
+      ![Configuration Fix Screenshot](images/nfs_fix.png)
 
 - **VNC (5900)**
   - The VNC password for Metasploitable 2 is “password” funnily enough which makes it very easy to brute-force. The VNC password should be changed by using the command vncpasswd.
 
 - **Bindshell (1524)**
   - Due to the last line ingreslock stream tcp nowait root /bin/bash bash -i, potential bad actors can easily spawn a root shell using tools like Meterpreter and Netcat. This line needs to be removed or commented out.
+![Configuration Fix Screenshot](images/bindshell_fix.png)
 
 - **SMB (139, 445)**
   - Using MSF6, the exploit exploit/multi/samba/usermap_script gains root access to Metasploitable 2. The exploit can be rendered useless if the line username map script = /etc/samba/scripts/mapusers.sh is commented.
+![Configuration Fix Screenshot](images/smb_fix.png)
 
 - **Apache Tomcat AJP Connector (8009)**
   - The AJP Connector facilitates communication between Tomcat and the installed web server which in this case is Apache.This particular version of Tomcat installed on Metasploitable 2 is running a vulnerable AJP Connector. This vulnerability can be remediated by adding a secret key in the AJP connector line in /etc/tomcat5.5/server.xml which provides a layer of authentication.
 
 - **Configuration Fix Example:**
-  ![Configuration Fix Screenshot](images/config_fix.png)
+  ![Configuration Fix Screenshot](images/ajp_fix.png)
 
 ---
 
@@ -117,10 +120,7 @@ To enhance the security posture of the network, the following measures will be i
    - Close unnecessary open ports on the Metasploitable machine.
 
 ---
-
-### How to Use This Repository
-1. Download the Nessus scan reports for detailed vulnerability analysis.
-2. Review the provided screenshots for pre-patch and post-patch comparison.
-3. Use the documented steps to replicate the environment or apply additional hardening measures.
+**Special thanks to jai**
+  - https://medium.com/@jai38100/hardening-metasploitable-2-52ec0adf48f2
 
    
