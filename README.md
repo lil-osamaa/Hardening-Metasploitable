@@ -97,8 +97,6 @@ The network environment consists of two main components: a **Vulnerable Machine*
 
 - **Apache Tomcat AJP Connector (8009)**
   - The AJP Connector facilitates communication between Tomcat and the installed web server which in this case is Apache.This particular version of Tomcat installed on Metasploitable 2 is running a vulnerable AJP Connector. This vulnerability can be remediated by adding a secret key in the AJP connector line in /etc/tomcat5.5/server.xml which provides a layer of authentication.
-
-- **Configuration Fix Example:**
   ![Configuration Fix Screenshot](images/ajp_fix.png)
 
 ---
