@@ -3,7 +3,7 @@
 ## Project: Vulnerability Assessment and Remediation Plan for Metasploitable
 
 ### Overview
-The goal of this project is to identify vulnerabilities within the network, systems (Metasploitable machine), and applications, propose actionable remediation strategies, and ensure secure configuration management.
+The goal of this project is to identify vulnerabilities within the **Metasploitable machine**, and applications, propose actionable remediation strategies, and ensure secure configuration management.
 
 ---
 
