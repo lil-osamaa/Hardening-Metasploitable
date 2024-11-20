@@ -43,24 +43,16 @@ The network environment consists of two main components: a **Vulnerable Machine*
 #### **Week 1: Vulnerability Assessment**
 **Objective:** Identify and document vulnerabilities across the network.
 
-- Tools Used: 
+- Tools Used:
+  - Nmap
   - Nessus for vulnerability scanning.
 - Actions Performed:
   - Conducted scans on the Metasploitable machine to identify high, medium, and low-risk vulnerabilities.
 - Artifacts:
-  - Pre-patch scan report: [Download Here](reports/nessus_pre_patch.html)
-  - Post-patch scan report: [Download Here](reports/nessus_post_patch.html)
-- **Pre-Patch Scan Summary:**
-  - High vulnerabilities: X
-  - Medium vulnerabilities: Y
-  - Screenshot of Pre-Patch Scan:
-    ![Pre-Patch Nessus Screenshot](images/pre_patch_scan.png)
-  
-- **Post-Patch Scan Summary:**
-  - High vulnerabilities: A
-  - Medium vulnerabilities: B
-  - Screenshot of Post-Patch Scan:
-    ![Post-Patch Nessus Screenshot](images/post_patch_scan.png)
+  - Screenshot of Pre-Patch Nmap Scan:
+  - ![Pre-Patch Nmap Screenshot](images/pre_patch_Nmap_scan.png)
+  - Pre-patch Nessus scan report: [Download Here](reports/nessus_pre_patch.html)
+  - Post-patch Nessus scan report: [Download Here](reports/nessus_post_patch.html)
 
 ---
 
