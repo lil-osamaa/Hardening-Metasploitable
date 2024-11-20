@@ -51,8 +51,15 @@ The network environment consists of two main components: a **Vulnerable Machine*
 - Artifacts:
   - Screenshot of Pre-Patch Nmap Scan:
   - ![Pre-Patch Nmap Screenshot](images/pre_patch_Nmap_scan.png)
-  - Pre-patch Nessus scan report: [Download Here](reports/nessus_pre_patch.html)
-  - Post-patch Nessus scan report: [Download Here](reports/nessus_post_patch.html)
+  - Pre-patch Nessus .html scan report: [Download Here](reports/nessus_pre_patch.html)
+
+  - Screenshot of Pre-Patch Scan:
+    ![Pre-Patch Nessus Screenshot](images/pre_patch_scan.png)
+
+  - Post-patch Nessus .html scan report: [Download Here](reports/nessus_post_patch.html)
+
+  - Screenshot of Post-Patch Scan:
+    ![Post-Patch Nessus Screenshot](images/post_patch_scan.png)
 
 ---
 
@@ -62,7 +69,7 @@ The network environment consists of two main components: a **Vulnerable Machine*
 - Tools Used:
   - Metasploit on the Kali Linux machine.
 - Actions Performed:
-  - Exploited several high and medium-risk vulnerabilities identified in Week 1.
+  - Exploited several critical and high-risk vulnerabilities identified in Week 1.
 - **Exploitation Example:**
   ![Exploitation Screenshot](images/exploitation_example.png)
 
@@ -70,9 +77,24 @@ The network environment consists of two main components: a **Vulnerable Machine*
 
 #### **Week 3: Secure Configuration and Patch Management**
 **Objective:** Mitigate vulnerabilities through secure configuration and patching.
-
 - Actions Performed:
   - Edited configuration files to patch exploited vulnerabilities.
+- **NFS (111, 2049)**
+  - NFS is misconfigured so that it provides full access to its entire root filesystem to all devices on the network. As you can see from /etc/exports down below, ‘*’ basically means that all hosts are allowed to mount the root filesystem which is ill-advised. It is considered best practice to limit access to only necessary hosts and restrict to only necessary directories.
+      ![Configuration Fix Screenshot](images/config_fix.png)
+
+- **VNC (5900)**
+  - The VNC password for Metasploitable 2 is “password” funnily enough which makes it very easy to brute-force. The VNC password should be changed by using the command vncpasswd.
+
+- **Bindshell (1524)**
+  - Due to the last line ingreslock stream tcp nowait root /bin/bash bash -i, potential bad actors can easily spawn a root shell using tools like Meterpreter and Netcat. This line needs to be removed or commented out.
+
+- **SMB (139, 445)**
+  - Using MSF6, the exploit exploit/multi/samba/usermap_script gains root access to Metasploitable 2. The exploit can be rendered useless if the line username map script = /etc/samba/scripts/mapusers.sh is commented.
+
+- **Apache Tomcat AJP Connector (8009)**
+  - The AJP Connector facilitates communication between Tomcat and the installed web server which in this case is Apache.This particular version of Tomcat installed on Metasploitable 2 is running a vulnerable AJP Connector. This vulnerability can be remediated by adding a secret key in the AJP connector line in /etc/tomcat5.5/server.xml which provides a layer of authentication.
+
 - **Configuration Fix Example:**
   ![Configuration Fix Screenshot](images/config_fix.png)
 
