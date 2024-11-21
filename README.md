@@ -82,14 +82,16 @@ The network environment consists of two main components: a **Vulnerable Machine*
 
 - **NFS (111, 2049)**
   - NFS is misconfigured so that it provides full access to its entire root filesystem to all devices on the network. As you can see from /etc/exports down below, ‘*’ basically means that all hosts are allowed to mount the root filesystem which is ill-advised. It is considered best practice to limit access to only necessary hosts and restrict to only necessary directories.
-      ![Configuration Fix Screenshot](images/nfs_fix.png)
+      ![Configuration Fix Screenshot](images/IMG-20241016-WA0011.jpg)
+      ![Configuration Fix Screenshot](images/IMG-20241016-WA0010.jpg)
 
 - **VNC (5900)**
   - The VNC password for Metasploitable 2 is “password” funnily enough which makes it very easy to brute-force. The VNC password should be changed by using the command vncpasswd.
 
 - **Bindshell (1524)**
   - Due to the last line ingreslock stream tcp nowait root /bin/bash bash -i, potential bad actors can easily spawn a root shell using tools like Meterpreter and Netcat. This line needs to be removed or commented out.
-![Configuration Fix Screenshot](images/bindshell_fix.png)
+![Configuration Fix Screenshot](images/IMG-20241016-WA0013.jpg)
+![Configuration Fix Screenshot](images/IMG-20241016-WA0012.jpg)
 
 - **SMB (139, 445)**
   - Using MSF6, the exploit exploit/multi/samba/usermap_script gains root access to Metasploitable 2. The exploit can be rendered useless if the line username map script = /etc/samba/scripts/mapusers.sh is commented.
@@ -97,7 +99,7 @@ The network environment consists of two main components: a **Vulnerable Machine*
 
 - **Apache Tomcat AJP Connector (8009)**
   - The AJP Connector facilitates communication between Tomcat and the installed web server which in this case is Apache.This particular version of Tomcat installed on Metasploitable 2 is running a vulnerable AJP Connector. This vulnerability can be remediated by adding a secret key in the AJP connector line in /etc/tomcat5.5/server.xml which provides a layer of authentication.
-  ![Configuration Fix Screenshot](images/ajp_fix.png)
+  ![Configuration Fix Screenshot](images/IMG-20241016-WA0019.jpg)
 
 ---
 
